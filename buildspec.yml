@@ -8,7 +8,7 @@ eb_codebuild_settings:
 phases:
   install:
     runtime-versions:
-      nodejs: 12
+      nodejs: 10
     commands:
       - echo Installing source NPM dependencies...
       - npm install
