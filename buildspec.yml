@@ -1,0 +1,38 @@
+version: 0.2
+
+eb_codebuild_settings:
+  CodeBuildServiceRole: codebuild-psa-decli-api-idea-build-service-role
+  ComputeType: BUILD_GENERAL1_SMALL
+  Image: 622142464602.dkr.ecr.eu-west-3.amazonaws.com/csaas-node-test-api:latest
+  Timeout: 20
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+    commands:
+      - echo Installing source NPM dependencies...
+      - npm install
+      - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - docker --version
+      - $(aws ecr get-login --region eu-west-3 --no-include-email)
+      - REPOSITORY_URI=622142464602.dkr.ecr.eu-west-3.amazonaws.com/csaas-node-test-api
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}     
+  build:
+    commands:
+      - echo Building the Docker Image...
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+  post_build:
+     commands:
+      - echo Build completed on `date`
+      - echo Pushing the docker images...
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+artifacts:
+  files:
+    - Dockerrun.aws.json
