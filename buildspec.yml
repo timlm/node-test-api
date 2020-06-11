@@ -19,13 +19,15 @@ phases:
       - docker --version
       - $(aws ecr get-login --region eu-west-3 --no-include-email)
       - REPOSITORY_URI=622142464602.dkr.ecr.eu-west-3.amazonaws.com/node-test-api
+      - ECR_NAME=node-test-api
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}     
   build:
     commands:
       - echo Building the Docker Image...
-      - docker build -t $REPOSITORY_URI:latest .
-      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+      - docker build -t $ECR_NAME:latest .
+      - docker tag $ECR_NAME:latest $REPOSITORY_URI:latest
+      - docker tag $ECR_NAME:$IMAGE_TAG $REPOSITORY_URI:$IMAGE_TAG
   post_build:
      commands:
       - echo Build completed on `date`
