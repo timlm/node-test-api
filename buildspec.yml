@@ -18,7 +18,7 @@ phases:
       - aws --version
       - docker --version
       - $(aws ecr get-login --region eu-west-3 --no-include-email)
-      - REPOSITORY_URI=622142464602.dkr.ecr.eu-west-3.amazonaws.com/csaas-node-test-api
+      - REPOSITORY_URI=622142464602.dkr.ecr.eu-west-3.amazonaws.com/node-test-api
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}     
   build:
