@@ -1,7 +1,7 @@
 version: 0.2
 
 eb_codebuild_settings:
-  CodeBuildServiceRole: codebuild-psa-decli-api-idea-build-service-role
+  CodeBuildServiceRole: codebuild-node-test-build-service-role
   ComputeType: BUILD_GENERAL1_SMALL
   Image: 622142464602.dkr.ecr.eu-west-3.amazonaws.com/csaas-node-test-api:latest
   Timeout: 20
