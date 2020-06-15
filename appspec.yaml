@@ -7,9 +7,3 @@ Resources:
         LoadBalancerInfo:
           ContainerName: "node-test-container"
           ContainerPort: 3000
-Hooks:
-  - BeforeInstall: "BeforeInstallHookFunctionName"
-  - AfterInstall: "AfterInstallHookFunctionName"
-  - AfterAllowTestTraffic: "AfterAllowTestTrafficHookFunctionName"
-  - BeforeAllowTraffic: "BeforeAllowTrafficHookFunctionName"
-  - AfterAllowTraffic: "AfterAllowTrafficHookFunctionName"
