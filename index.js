@@ -14,5 +14,5 @@ app.use(function (req,res,next) {
 app.use(function(err,req,res,next) {
     const code = Math.random() < 0.5 ? 502 : 200;
     console.log(code);
-    res.status(code).json({value:"nope test !"});
+    res.status(code).json({value:"nope test 2 !"});
 });
