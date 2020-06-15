@@ -6,4 +6,4 @@ Resources:
         TaskDefinition: <TASK_DEFINITION>
         LoadBalancerInfo:
           ContainerName: "node-test-container"
-          ContainerPort: 3000
+          ContainerPort: 80
