@@ -2,8 +2,8 @@ const express = require("express");
 
 const app = express();
 
-app.listen(3000, () => {
-    console.info("Server running on port %d", 3000);
+app.listen(80, () => {
+    console.info("Server running on port %d", 80);
 });
 
 app.use(function (req,res,next) {
